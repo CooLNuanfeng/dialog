@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link href="css/font-awesome.min.css" type="text/css" rel="stylesheet">
+<link href="css/dialog.css" type="text/css" rel="stylesheet">
+<script src="js/jquery1.7.js"></script>
+<script src="js/dialog.js"></script>
+<script>
+$(function(){
+	$('#btn1').click(function(){
+		$('body').dialog({
+			width:300,
+			height:200,
+			Marked :1
+		});
+	});
+	
+	$.dialog({
+		width : 150,
+		height: 300,
+		pos : 'r-b',
+		title :'公告',
+		Marked :2
+	})
+})
+</script>
+</head>
+
+<body>
+<input type="button" id="btn1" value="button 1">
+<!--<div class="dialog dialog_ui">
+	<div class="dialog_title"><a href="#" class="dialog_close"><i class="fa fa-dot-circle-o"></i></a>标题</div>
+    <div class="dialog_con">
+    </div>
+    <div class="dialog_btn">
+        <a class="dialog_sure">确定</a>
+        <a class="dialog_cancel">取消</a>
+    </div>
+</div>-->
+</body>
+</html>

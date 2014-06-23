@@ -1,0 +1,88 @@
+
+@charset "utf-8";
+
+.dialog{position:absolute; background:#fcfcfc; font-size:14px; margin:0; padding:0;}
+
+.dialog_ui{border-radius:10px; box-shadow:0 2px 5px rgba(51,51,51,0.2); overflow:hidden}
+.dialog_ui .dialog_title{width:100%; height:40px; line-height:40px; background:#00c0ff; font-family:"微软雅黑"; text-align:center; color:#fff;}
+.dialog_ui .dialog_close{float:right; margin-right:10px; height:40px; line-height:40px; color:#fff;}
+
+.dialog_ui .dialog_btn{width:100%; height:40px; line-height:40px; text-align:right;}
+.dialog_ui .dialog_sure{
+   font-family:"微软雅黑";
+   border: 1px solid #0f96d4;
+   background: #0571a3;
+   background: -webkit-gradient(linear, left top, left bottom, from(#00bfff), to(#0571a3));
+   background: -webkit-linear-gradient(top, #00bfff, #0571a3);
+   background: -moz-linear-gradient(top, #00bfff, #0571a3);
+   background: -ms-linear-gradient(top, #00bfff, #0571a3);
+   background: -o-linear-gradient(top, #00bfff, #0571a3);
+   background-image: -ms-linear-gradient(top, #00bfff 0%, #0571a3 100%);
+   padding: 6px 20px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #ffffff;
+   font-size: 12px;
+   text-decoration: none;
+   vertical-align: middle;
+   cursor:pointer;
+   margin-right:10px;
+}
+
+.dialog_ui .dialog_sure:hover {
+   border: 1px solid #0f96d4;
+   text-shadow: #1e6d9e 0 1px 0;
+   background: #1d83b2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#00bfff), to(#1d83b2));
+   background: -webkit-linear-gradient(top, #00bfff, #1d83b2);
+   background: -moz-linear-gradient(top, #00bfff, #1d83b2);
+   background: -ms-linear-gradient(top, #00bfff, #1d83b2);
+   background: -o-linear-gradient(top, #00bfff, #1d83b2);
+   background-image: -ms-linear-gradient(top, #00bfff 0%, #1d83b2 100%);
+   color: #fff;
+   }
+
+.dialog_ui .dialog_cancel {
+   font-family:"微软雅黑";
+   border: 1px solid #d6d6d6;
+   background: #cccccc;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+   background: -webkit-linear-gradient(top, #ffffff, #cccccc);
+   background: -moz-linear-gradient(top, #ffffff, #cccccc);
+   background: -ms-linear-gradient(top, #ffffff, #cccccc);
+   background: -o-linear-gradient(top, #ffffff, #cccccc);
+   background-image: -ms-linear-gradient(top, #ffffff 0%, #cccccc 100%);
+   padding:6px 20px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #707070 0 1px 0;
+   color: #ffffff;
+   font-size: 12px;
+   text-decoration: none;
+   vertical-align: middle;
+   margin-right:10px;
+   cursor:pointer
+}
+.dialog_ui .dialog_cancel:hover {
+   border: 1px solid #d6d6d6;
+   text-shadow: #1e6d9e 0 1px 0;
+   background: #ddd;
+   background: -webkit-gradient(linear, left top, left bottom, from(#00bfff), to(#ddd));
+   background: -webkit-linear-gradient(top, #fff, #ddd);
+   background: -moz-linear-gradient(top, #fff, #ddd);
+   background: -ms-linear-gradient(top, #fff, #ddd);
+   background: -o-linear-gradient(top, #fff, #ddd);
+   background-image: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
+   color: #fff;
+}   
+
+.dialog_metro{border:5px solid rgba(102,102,102,0.5);}
