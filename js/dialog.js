@@ -39,14 +39,15 @@ Dialog.prototype = {
 		
 		$.extend(this.settings,options);
 		
-		if(this.once[this.settings.Marked] == undefined){
-			this.once[this.settings.Marked] = true;
+		if(this.once[options.Marked] == undefined){
+			this.once[options.Marked] = true;
 		}
 	
-		
-		if(this.once[this.settings.Marked]){
+		if(this.once[options.Marked]){
 			this.createDialog();
-			this.once[this.settings.Marked] = false;
+			console.log(this.settings.Marked)
+			console.log(this.once[this.settings.Marked])
+			this.once[options.Marked] = false;
 		}
 				
 	},
@@ -115,13 +116,16 @@ Dialog.prototype = {
 	//关闭dialog
 	closeDialog : function(obj){
 		var This = this;
-		$('.dialog_close').on('click',function(){
+		$('.dialog_close').off('click').on('click',function(){
 			$(this).parent().parent().remove();
-			alert('a');
 			This.once[This.settings.Marked] = true;
-		})
-		$(obj).parent().parent().remove();
-		this.once[this.settings.Marked] = true;
+			console.log(This.settings.Marked)
+			console.log(This.once[This.settings.Marked])
+		});
+		if(obj){
+			$(obj).parent().parent().remove();
+			this.once[this.settings.Marked] = true;
+		}
 		if(this.settings.mask){
 			$('#mask').remove();
 		}
