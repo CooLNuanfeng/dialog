@@ -112,14 +112,14 @@ Dialog.prototype = {
 			})
 		}
 		
-		console.log($('.dialog_close').length)
+		//console.log($('.dialog_close').length)
 		$('.dialog_close').click(function(){
 			This.closeDialog(this);
 			This.once[This.settings.Marked] = true;
 			alert('a');
-			console.log($('.dialog_close').length)
-			console.log(This.once[This.settings.Marked]);
-			console.log(This.once)
+			//console.log($('.dialog_close').length)
+			//console.log(This.once[This.settings.Marked]);
+			//console.log(This.once)
 		})
 		
 	},
