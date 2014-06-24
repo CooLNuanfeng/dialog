@@ -20,15 +20,10 @@ function Dialog(){
 		height: 'auto',
 		title : '',
 		content : '',
-		type : 'notice',
 		className:'dialog_ui',
 		pos : 'c-c',
-		move : '',
 		mask : false,
-		okVal : '确定',
-		cancelVal : '取消',
-		ok : false,
-		cancel : false	
+		drag : false
 	}
 }
 
@@ -44,7 +39,6 @@ Dialog.prototype = {
 		
 		$.extend(this.settings,options);
 		
-		//console.log(this.once[this.settings.Marked])
 		if(this.once[this.settings.Marked] == undefined){
 			this.once[this.settings.Marked] = true;
 		}
@@ -65,7 +59,11 @@ Dialog.prototype = {
 		this.temple();
 		this.setStyle();
 		this.closeDialog();
+		this.mask();
+		//this.ok();
+		//this.cancel();
 	},
+	
 	//位置尺寸设置
 	setStyle : function(){
 				
@@ -92,25 +90,72 @@ Dialog.prototype = {
 	//模板类型
 	temple : function(){
 		
-		if(this.settings.type == 'notice'){
-			this.$Dialog.html('<div class="dialog_title"><a href="#" class="dialog_close"><i class="fa fa-dot-circle-o"></i></a>'+this.settings.title+'</div>'+
-    					 '<div class="dialog_con"></div>');
+		var This = this;
+		
+		if(this.settings.okVal == undefined){
+			this.$Dialog.html('<div class="dialog_title"><a href="javascript:;" class="dialog_close" target="_self"><i class="fa fa-dot-circle-o"></i></a>'+this.settings.title+'</div>'+
+    					 '<div class="dialog_con">'+this.settings.content+'</div>');
 		}
 		
-		if(this.settings.type == 'proform'){
+		if(this.settings.okVal){
 			this.$Dialog.html('<div class="dialog_title"><a href="#" class="dialog_close"><i class="fa fa-dot-circle-o"></i></a>'+this.settings.title+'</div>'+
-    					 '<div class="dialog_con"></div>'+
+    					 '<div class="dialog_con">'+this.settings.content+'</div>'+
 						 '<div class="dialog_btn"><a class="dialog_sure">'+this.settings.okVal+'</a><a class="dialog_cancel">'+this.settings.cancelVal+'</a></div>');
+			$('.dialog_sure').click(function(){
+				This.ok();
+				This.closeDialog(this);
+			});
+			
+			$('.dialog_cancel').click(function(){
+				This.cancel();
+				This.closeDialog(this);
+			})
+		}
+		
+		console.log($('.dialog_close').length)
+		$('.dialog_close').click(function(){
+			This.closeDialog(this);
+			This.once[This.settings.Marked] = true;
+			alert('a');
+			console.log($('.dialog_close').length)
+			console.log(This.once[This.settings.Marked]);
+			console.log(This.once)
+		})
+		
+	},
+	//关闭dialog
+	closeDialog : function(obj){
+		$(obj).parent().parent().remove();
+		if(this.settings.mask){
+			$('#mask').remove();
+		}
+	},
+	
+	//蒙版部分
+	mask : function(){
+		
+		if(this.settings.mask){
+			$('body').append($('<div id="mask"></div>').css({
+				width :$(window).width(),
+				height :$(window).height()
+			}));
+			
 		}
 		
 	},
 	
-	closeDialog : function(){
-		var This = this;
-		$('.dialog_close').on('click',function(){
-			$(this).parent().parent().remove();
-			This.once[This.settings.Marked] = true;
-		})
+	//OK回调函数
+	ok : function(){
+		if(this.settings.ok){
+			this.settings.ok();
+		}
+	},
+	
+	//cancle回调
+	cancel : function(){
+		if(this.settings.cancel){
+			this.settings.cancel();
+		}
 	}
 	
 }
