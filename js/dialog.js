@@ -37,12 +37,12 @@ Dialog.prototype = {
 	//初始化
 	init : function(options){
 		
-		$.extend(this.settings,options);
-		
 		if(this.once[options.Marked] == undefined){
 			this.once[options.Marked] = true;
 		}
-	
+		
+		$.extend(this.settings,options);
+		
 		if(this.once[options.Marked]){
 			this.createDialog();
 			console.log(this.settings.Marked)
