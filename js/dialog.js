@@ -110,22 +110,18 @@ Dialog.prototype = {
 				This.cancel();
 				This.closeDialog(this);
 			})
-		}
-		
-		//console.log($('.dialog_close').length)
-		$('.dialog_close').click(function(){
-			This.closeDialog(this);
-			This.once[This.settings.Marked] = true;
-			alert('a');
-			//console.log($('.dialog_close').length)
-			//console.log(This.once[This.settings.Marked]);
-			//console.log(This.once)
-		})
-		
+		}		
 	},
 	//关闭dialog
 	closeDialog : function(obj){
+		var This = this;
+		$('.dialog_close').on('click',function(){
+			$(this).parent().parent().remove();
+			alert('a');
+			This.once[This.settings.Marked] = true;
+		})
 		$(obj).parent().parent().remove();
+		this.once[this.settings.Marked] = true;
 		if(this.settings.mask){
 			$('#mask').remove();
 		}
