@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>无标题文档</title>
 <link href="css/font-awesome.min.css" type="text/css" rel="stylesheet">
+<link href="css/common.css" type="text/css" rel="stylesheet">
 <link href="css/dialog.css" type="text/css" rel="stylesheet">
 <script src="js/jquery1.7.js"></script>
 <script src="js/dialog.js"></script>
@@ -13,10 +14,12 @@ $(function(){
 		$('body').dialog({
 			width:300,
 			height:200,
-			Marked :'done',
 			content : $('.box').html(),
 			okVal : '确定',
-			cancelVal : '取消'
+			cancelVal : '取消',
+			once : 'one',
+			drag : true,
+			animate : 'one_3D'
 		});
 	});
 	
@@ -24,12 +27,21 @@ $(function(){
 		$('body').dialog({
 			width:500,
 			height:200,
-			Marked :'dTwo',
 			pos : 'r-b',
 			okVal :'ok',
-			cancelVal:'no'
+			cancelVal:'no',
+			once : 'two',
+			drag : true
 		});
 	});
+	
+	$('.li').live('click',function(){
+		$.dialog({
+			width : 200,
+			height: 200
+		})
+	})
+	
 })
 </script>
 </head>
@@ -37,7 +49,7 @@ $(function(){
 <body>
 <input type="button" id="btn1" value="button 1">
 <input type="button" id="btn2" value="button 2">
-<!--<div class="dialog dialog_ui">
+<!--<div class="dialog dialog_ui one_3D" style="width:300px; height:200px; left:40%; top:45%;">
 	<div class="dialog_title"><a href="#" class="dialog_close"><i class="fa fa-dot-circle-o"></i></a>标题</div>
     <div class="dialog_con">
     </div>
@@ -49,7 +61,7 @@ $(function(){
 <div class="box">
 	<ul>
     	<li>11111</li>
-        <li>22222</li>
+        <li class="li">22222</li>
     </ul>
 </div>
 </body>

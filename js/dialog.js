@@ -23,7 +23,8 @@ function Dialog(){
 		className:'dialog_ui',
 		pos : 'c-c',
 		mask : false,
-		drag : false
+		drag : false,
+		animate : ''
 	}
 }
 
@@ -37,17 +38,15 @@ Dialog.prototype = {
 	//初始化
 	init : function(options){
 		
-		if(this.once[options.Marked] == undefined){
-			this.once[options.Marked] = true;
-		}
-		
 		$.extend(this.settings,options);
 		
-		if(this.once[options.Marked]){
+		if(this.once[this.settings.once] == undefined){
+			this.once[this.settings.once] = true;
+		}
+		
+		if(this.once[this.settings.once]){
 			this.createDialog();
-			console.log(this.settings.Marked)
-			console.log(this.once[this.settings.Marked])
-			this.once[options.Marked] = false;
+			this.once[this.settings.once] = false;
 		}
 				
 	},
@@ -59,15 +58,30 @@ Dialog.prototype = {
 		
 		this.temple();
 		this.setStyle();
-		this.closeDialog();
 		this.mask();
+		this.drag();
+		
+		if(this.settings.animate !== ''){
+			this.animate();
+		}else{
+			this.closeDialog();
+		}
+		
+		//
 		//this.ok();
 		//this.cancel();
 	},
 	
 	//位置尺寸设置
 	setStyle : function(){
-				
+		/*
+		if(this.settings.animate){
+			this.animate();
+		}else{
+			this.$Dialog.width(this.settings.width);
+			this.$Dialog.height(this.settings.height);
+		}
+		*/
 		this.$Dialog.width(this.settings.width);
 		this.$Dialog.height(this.settings.height);
 		
@@ -102,12 +116,12 @@ Dialog.prototype = {
 			this.$Dialog.html('<div class="dialog_title"><a href="#" class="dialog_close"><i class="fa fa-dot-circle-o"></i></a>'+this.settings.title+'</div>'+
     					 '<div class="dialog_con">'+this.settings.content+'</div>'+
 						 '<div class="dialog_btn"><a class="dialog_sure">'+this.settings.okVal+'</a><a class="dialog_cancel">'+this.settings.cancelVal+'</a></div>');
-			$('.dialog_sure').click(function(){
+			this.$Dialog.find('.dialog_sure').click(function(){
 				This.ok();
 				This.closeDialog(this);
 			});
 			
-			$('.dialog_cancel').click(function(){
+			this.$Dialog.find('.dialog_cancel').click(function(){
 				This.cancel();
 				This.closeDialog(this);
 			})
@@ -116,19 +130,22 @@ Dialog.prototype = {
 	//关闭dialog
 	closeDialog : function(obj){
 		var This = this;
-		$('.dialog_close').off('click').on('click',function(){
+		//this.$Dialog.find('.dialog_close') 要在创建的对象下找，被这个害惨了，浪费了老长时间  T.T
+		this.$Dialog.find('.dialog_close').on('click',function(){
 			$(this).parent().parent().remove();
-			This.once[This.settings.Marked] = true;
-			console.log(This.settings.Marked)
-			console.log(This.once[This.settings.Marked])
+			This.once[This.settings.once] = true;
+			if(This.settings.mask){
+				$('#mask').remove();
+			}
 		});
 		if(obj){
 			$(obj).parent().parent().remove();
-			this.once[this.settings.Marked] = true;
+			this.once[this.settings.once] = true;
+			if(this.settings.mask){
+				$('#mask').remove();
+			}
 		}
-		if(this.settings.mask){
-			$('#mask').remove();
-		}
+		
 	},
 	
 	//蒙版部分
@@ -156,6 +173,94 @@ Dialog.prototype = {
 		if(this.settings.cancel){
 			this.settings.cancel();
 		}
+	},
+	
+	//拖拽
+	drag : function(){
+		var This = this;
+		if(this.settings.drag){
+			this.$Dialog.find('.dialog_title').css({cursor:'all-scroll'}).on('mousedown',function(e){
+				var _this = this;
+				var disX = 	parseInt(e.pageX - This.$Dialog.position().left);
+				var disY = 	parseInt(e.pageY - This.$Dialog.position().top);
+				$(document).on('mousemove',function(e){
+					var L = e.pageX - disX;
+					var T = e.pageY - disY;
+					if(L<0){
+						L =0;
+					}else if(L>$(window).width()-This.$Dialog.width()){
+						L = $(window).width()-This.$Dialog.width()
+					}
+					if(T<0){
+						T = 0;
+					}else if(T>$(window).height()-This.$Dialog.height()){
+						T = $(window).height()-This.$Dialog.height()
+					}
+					This.$Dialog.css({
+						left : L,
+						top : T	
+					})
+				});
+				$(document).on('mouseup',function(){
+					$(document).off('mousemove');
+					$(document).off('mouseup');
+				});
+				
+				return false;
+			})
+		}
+	},
+	
+	//运动形式
+	animate : function(){
+		
+		if(this.settings.animate == 'slide'){
+			this.$Dialog.hide();
+			this.$Dialog.slideDown('slow');
+			this.animateCloseStyle();
+		}
+		if(this.settings.animate == 'one_3D'){
+			this.$Dialog.addClass('one_3D');
+		}
+	
+	},
+	
+	animateCloseStyle : function(){
+		
+		var This = this;
+		if(this.settings.animate == 'slide'){
+			this.$Dialog.find('.dialog_close').on('click',function(){
+				var _this = this;
+				This.$Dialog.slideUp('slow',function(){
+					$(_this).parent().parent().remove();
+				});
+				This.once[This.settings.once] = true;
+				if(This.settings.mask){
+					$('#mask').remove();
+				}
+			})	
+			
+		}
 	}
 	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

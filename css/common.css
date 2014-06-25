@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,select,textarea,p,blockquote,th,td,hr,button,figure,menu
+{margin:0;padding:0; font:12px/1.5 Arial,"\5b8b\4f53";}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+ol,ul{list-style:none outside;}
+a img{border:none;}
+img{ vertical-align:top;}
+input{ font-family:Tahoma,Verdana,Geneva,sans-serif}
+a{ text-decoration:none;outline:none; hide-focus:expression(this.hideFocus=true);}a:hover{ text-decoration: underline;}
+i,samp,dfn,em{ font-style:normal;}
+.clearfix {*zoom:1}
+.clearfix:before, .clearfix:after {display: table;content: "";line-height: 0}
+.clearfix:after {clear: both}
+
+body{-webkit-perspective:800px; -webkit-transform-style:preserve-3d; }
