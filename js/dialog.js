@@ -247,12 +247,16 @@ Dialog.prototype = {
 		if(this.settings.animate == 'one_3D'){
 			this.$Dialog.find('.dialog_close').on('click',function(){
 				This.$Dialog.addClass('one_3D');
-				//$(this).parent().parent().delay(1000).remove();
+				// webkitTransitionEnd 当 css3 的transition 动作玩进行回调
+				This.$Dialog.on('webkitTransitionEnd',function(){
+					This.$Dialog.remove();
+					This.once[This.settings.once] = true;
+					if(This.settings.mask){
+						$('#mask').remove();
+					}
+				})
 			})
-			This.once[This.settings.once] = true;
-			if(This.settings.mask){
-				$('#mask').remove();
-			}
+			
 		}
 		
 	}
