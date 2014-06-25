@@ -53,7 +53,7 @@ Dialog.prototype = {
 	
 	createDialog : function(){
 		this.$Dialog = $('<div class="dialog"></div>');
-		this.$Dialog.addClass(this.settings.className);
+		this.$Dialog.addClass(this.settings.className+' '+this.settings.animate);
 		$('body').append(this.$Dialog);
 		
 		this.temple();
@@ -220,7 +220,10 @@ Dialog.prototype = {
 			this.animateCloseStyle();
 		}
 		if(this.settings.animate == 'one_3D'){
-			this.$Dialog.addClass('one_3D');
+			this.$Dialog.removeClass('one_3D').css({
+				WebkitTransition: 'all ease-in 0.8s'
+			});
+			this.animateCloseStyle();
 		}
 	
 	},
@@ -239,8 +242,19 @@ Dialog.prototype = {
 					$('#mask').remove();
 				}
 			})	
-			
 		}
+		
+		if(this.settings.animate == 'one_3D'){
+			this.$Dialog.find('.dialog_close').on('click',function(){
+				This.$Dialog.addClass('one_3D');
+				//$(this).parent().parent().delay(1000).remove();
+			})
+			This.once[This.settings.once] = true;
+			if(This.settings.mask){
+				$('#mask').remove();
+			}
+		}
+		
 	}
 	
 	

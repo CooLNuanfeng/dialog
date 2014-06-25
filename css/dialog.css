@@ -92,8 +92,7 @@
 
 
 /*3D样式*/
-.one_3D{-webkit-transform:translateZ(800px) translateY(-350px); opacity:0; -webkit-transition:all ease-in-out 3s}
-
+.one_3D{-webkit-transform:translateZ(1000px) translateY(-700px); opacity:0;}
 
 
 
