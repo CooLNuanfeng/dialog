@@ -92,7 +92,7 @@
 
 
 /*3D样式*/
-.one_3D{-webkit-transform:translateZ(1000px) scale(50,50); opacity:0;}
+.one_3D{-webkit-transform:translateZ(1000px) scale(5,5); -moz-transform:translateZ(1000px) scale(5,5); opacity:0;}
 
 
 

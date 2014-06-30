@@ -14,4 +14,4 @@ i,samp,dfn,em{ font-style:normal;}
 .clearfix:before, .clearfix:after {display: table;content: "";line-height: 0}
 .clearfix:after {clear: both}
 
-body{-webkit-perspective:800px; -webkit-transform-style:preserve-3d; }
+body{-webkit-perspective:800px; -webkit-transform-style:preserve-3d; -moz-perspective:800px; -moz-transform-style:preserve-3d; perspective:800px; transform-style:preserve-3d }

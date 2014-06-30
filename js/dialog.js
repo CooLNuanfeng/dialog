@@ -74,29 +74,22 @@ Dialog.prototype = {
 	
 	//位置尺寸设置
 	setStyle : function(){
-		/*
-		if(this.settings.animate){
-			this.animate();
-		}else{
-			this.$Dialog.width(this.settings.width);
-			this.$Dialog.height(this.settings.height);
-		}
-		*/
+		
 		this.$Dialog.width(this.settings.width);
 		this.$Dialog.height(this.settings.height);
 		
 		if(this.settings.pos == 'c-c'){
 			this.$Dialog.css({
-				top: ($(window).height()-this.$Dialog.height())/2,
-				left: ($(window).width()-this.$Dialog.width())/2
+				top: ($(window).height()-this.$Dialog.height())/2 + $(document).scrollTop(),
+				left: ($(window).width()-this.$Dialog.width())/2 + $(document).scrollLeft()
 			})
 			
 		}
 		
 		if(this.settings.pos == 'r-b'){
 			this.$Dialog.css({
-				top: ($(window).height()-this.$Dialog.height()),
-				left: ($(window).width()-this.$Dialog.width())
+				top: ($(window).height()-this.$Dialog.height())+ $(document).scrollTop(),
+				left: ($(window).width()-this.$Dialog.width())+ $(document).scrollLeft()
 			})
 			
 		}
@@ -186,15 +179,15 @@ Dialog.prototype = {
 				$(document).on('mousemove',function(e){
 					var L = e.pageX - disX;
 					var T = e.pageY - disY;
-					if(L<0){
-						L =0;
-					}else if(L>$(window).width()-This.$Dialog.width()){
-						L = $(window).width()-This.$Dialog.width()
+					if(L<0 + $(window).scrollLeft()){
+						L =0 + $(window).scrollLeft();
+					}else if(L>$(window).width()+$(window).scrollLeft()-This.$Dialog.width()){
+						L = $(window).width()+$(window).scrollLeft()-This.$Dialog.width()
 					}
-					if(T<0){
-						T = 0;
-					}else if(T>$(window).height()-This.$Dialog.height()){
-						T = $(window).height()-This.$Dialog.height()
+					if(T<0 + $(window).scrollTop()){
+						T = 0 + $(window).scrollTop();
+					}else if(T>$(window).height()+$(window).scrollTop()-This.$Dialog.height()){
+						T = $(window).height()+$(window).scrollTop()-This.$Dialog.height()
 					}
 					This.$Dialog.css({
 						left : L,
@@ -211,7 +204,7 @@ Dialog.prototype = {
 		}
 	},
 	
-	//运动形式
+	//运动形式，目前两种
 	animate : function(){
 		
 		if(this.settings.animate == 'slide'){
@@ -221,16 +214,20 @@ Dialog.prototype = {
 		}
 		if(this.settings.animate == 'one_3D'){
 			this.$Dialog.removeClass('one_3D').css({
-				WebkitTransition: 'all ease-in 0.8s'
+				//只对特定属性过度
+				//WebkitTransition: '-webkit-transform ease-in 0.8s , opacity ease-in 0.8s',
+				//MozTransition: '-moz-transform ease-in 0.8s , opacity ease-in 0.8s'
+				WebkitTransition: 'all ease-in 0.8s',
+				MozTransition: 'all ease-in 0.8s'
 			});
 			this.animateCloseStyle();
 		}
 	
 	},
-	
 	animateCloseStyle : function(){
 		
 		var This = this;
+		
 		if(this.settings.animate == 'slide'){
 			this.$Dialog.find('.dialog_close').on('click',function(){
 				var _this = this;
@@ -247,14 +244,22 @@ Dialog.prototype = {
 		if(this.settings.animate == 'one_3D'){
 			this.$Dialog.find('.dialog_close').on('click',function(){
 				This.$Dialog.addClass('one_3D');
+				
 				// webkitTransitionEnd 当 css3 的transition 动作玩进行回调
-				This.$Dialog.on('webkitTransitionEnd',function(){
+				if('WebkitTransform' in  document.documentElement.style || 'MozTransform' in document.documentElement.style){
+					This.$Dialog.on('webkitTransitionEnd',function(){
+						This.$Dialog.remove();
+					});
+					This.$Dialog.on('transitionend',function(){
+						This.$Dialog.remove();
+					})
+				}else{
 					This.$Dialog.remove();
-					This.once[This.settings.once] = true;
-					if(This.settings.mask){
-						$('#mask').remove();
-					}
-				})
+				}
+				This.once[This.settings.once] = true;
+				if(This.settings.mask){
+					$('#mask').remove();
+				}
 			})
 			
 		}
