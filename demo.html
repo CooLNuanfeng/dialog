@@ -15,7 +15,7 @@ $(function(){
 		$('body').dialog({
 			width:600,     //宽
 			height:200,		//高
-			className : '',  // 配合自定义样式使用 可选项 
+			className : 'dialog_ui',  // 配合自定义样式使用 可选项 
 			content : $('.box').html(),  //内容
 			title : '',    //弹层的标题内容 可选项
 			mask : true,     // 遮罩 可选项
@@ -24,7 +24,7 @@ $(function(){
 			cancelVal : '取消',   //cancel值
 			once : 'one',     // 标示， 可选项  如果一个需要需要能弹出多个框，则添加该属性，并赋予不同的值 如 once : 'one',once : 'two', once : 'name'
 			drag : true,     // 是否能拖拽 可选项
-			animate : 'one_3D'  // 弹层的动画形式 目前有两种 slide  one_3D，可选项
+			animate : 'slide'  // 弹层的动画形式 目前有两种 slide  one_3D，可选项
 		});
 	});
 	
