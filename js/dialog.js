@@ -24,7 +24,8 @@ function Dialog(){
 		pos : 'c-c',
 		mask : false,
 		drag : false,
-		animate : ''
+		animate : '',
+		aniTime : 400
 	}
 }
 
@@ -209,7 +210,7 @@ Dialog.prototype = {
 		
 		if(this.settings.animate == 'slide'){
 			this.$Dialog.hide();
-			this.$Dialog.slideDown('slow');
+			this.$Dialog.slideDown(this.settings.aniTime);
 			this.animateCloseStyle();
 		}
 		if(this.settings.animate == 'one_3D'){
@@ -217,8 +218,8 @@ Dialog.prototype = {
 				//只对特定属性过度
 				//WebkitTransition: '-webkit-transform ease-in 0.8s , opacity ease-in 0.8s',
 				//MozTransition: '-moz-transform ease-in 0.8s , opacity ease-in 0.8s'
-				WebkitTransition: 'all ease-in 0.8s',
-				MozTransition: 'all ease-in 0.8s'
+				WebkitTransition: 'all ease-in '+ this.settings.aniTime+'ms',
+				MozTransition: 'all ease-in ' + this.settings.aniTime+'ms'
 			});
 			this.animateCloseStyle();
 		}
@@ -231,7 +232,7 @@ Dialog.prototype = {
 		if(this.settings.animate == 'slide'){
 			this.$Dialog.find('.dialog_close').on('click',function(){
 				var _this = this;
-				This.$Dialog.slideUp('slow',function(){
+				This.$Dialog.slideUp(This.settings.aniTime,function(){
 					$(_this).parent().parent().remove();
 				});
 				This.once[This.settings.once] = true;
